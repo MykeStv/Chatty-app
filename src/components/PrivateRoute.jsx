@@ -5,7 +5,7 @@ import { auth } from '../services/firebase'
 
 const PrivateRoute = ({ children, authenticated }) => {
 
-    console.log(authenticated);
+    // console.log(authenticated);
 
 
     return (

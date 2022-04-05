@@ -3,17 +3,35 @@ import { Link } from 'react-router-dom'
 import { signup } from '../helpers/auth'
 
 const Signup = () => {
+    // const [email, setEmail] = useState('')
+    // const [password, setPassword] = useState('')
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [error, setError] = useState(false)
+    const [userInput, setUserInput] = useState({
+        email: '',
+        password: ''
+    })
+    const [errorInput, setErrorInput] = useState(false)
 
-    const handleChange = () => {
+    const handleChange = (e) => {
+        setUserInput({
+            ...userInput,
+            [e.target.name]: e.target.value
+        })
 
     }
-    const handleSubmit = () => {
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        setErrorInput({ error: '' })
+
+        try {
+            await signup(userInput.email, userInput.password)
+        } catch (error) {
+            setErrorInput({ error: error.message })
+        }
 
     }
+
 
 
     return (
@@ -28,7 +46,7 @@ const Signup = () => {
                         placeholder='Email'
                         name='email'
                         onChange={handleChange}
-                        value={email}
+                        value={userInput.email}
                     />
                 </div>
                 <div>
@@ -36,11 +54,11 @@ const Signup = () => {
                         placeholder='Password'
                         name='password'
                         onChange={handleChange}
-                        value={password}
+                        value={userInput.password}
                     />
                 </div>
                 <div>
-                    {error ? <p>{error}</p> : null}
+                    {errorInput.error ? <p>{errorInput.error}</p> : null}
                     <button type='submit'>Sign up</button>
                 </div>
                 <hr />

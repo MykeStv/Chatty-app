@@ -13,6 +13,7 @@ import { auth } from './services/firebase';
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
 import { onAuthStateChanged } from 'firebase/auth';
+import './App.css'
 
 
 
@@ -30,7 +31,7 @@ const App = () => {
         setLoading(false)
 
         const uid = user.uid
-        console.log(uid);
+        // console.log(uid);
 
       } else {
         setAuthenticated(false)
@@ -41,7 +42,7 @@ const App = () => {
   }, [])
 
   return (
-    <>
+    <div className='app'>
       {loading === true ? <h2>Loading...</h2> : (
         <Router>
 
@@ -74,7 +75,7 @@ const App = () => {
         </Router>
       )}
 
-    </>
+    </div>
   )
 }
 
