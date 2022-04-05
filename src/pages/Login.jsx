@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { signup, signInWithGoogle } from '../helpers/auth'
+import { signin, signInWithGoogle, signInWithGitHub } from '../helpers/auth'
 
 const Login = () => {
     const [userInput, setUserInput] = useState({
@@ -22,20 +22,15 @@ const Login = () => {
         setErrorInput({ error: '' })
 
         try {
-            await signup(userInput.email, userInput.password)
+            await signin(userInput.email, userInput.password)
         } catch (error) {
             setErrorInput({ error: error.message })
         }
 
     }
 
-    const googleSignIn = () => {
-        try {
-            signInWithGoogle()
-        } catch (error) {
-            setErrorInput({ error: error.message })
-        }
-    }
+
+
 
 
 
@@ -67,13 +62,16 @@ const Login = () => {
                     <button type='submit'>Login</button>
                 </div>
                 <hr />
-                <div>
-                    <p>Don't have an account? <Link to='/signup'>Sing up</Link></p>
+                <p>Don't have an account? <Link to='/signup'>Sing up</Link></p>
+                {/* <div>
                     <p>Or</p>
                     <button type='button' onClick={googleSignIn}>
                         Sign up with Google
                     </button>
-                </div>
+                    <button type='button' onClick={githubSignIn}>
+                        Sign up with GitHub
+                    </button>
+                </div> */}
 
 
             </form>
