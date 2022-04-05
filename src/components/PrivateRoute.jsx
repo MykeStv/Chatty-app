@@ -1,14 +1,15 @@
-import React from 'react'
+import { onAuthStateChanged } from 'firebase/auth'
+import React, { useEffect, useState } from 'react'
+import { Navigate, Route, Routes } from 'react-router-dom'
+import { auth } from '../services/firebase'
 
-const PrivateRoute = ({ component: Component, authenticated, ...rest }) => {
+const PrivateRoute = ({ children, authenticated }) => {
+
+    console.log(authenticated);
+
 
     return (
-        <Route
-            {...rest}
-            render={(props) => authenticated === true
-                ? <Component {...props} />
-                : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />}
-        />
+        authenticated ? children : <Navigate to='/login' />
     )
 }
 

@@ -1,13 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Navigate } from 'react-router-dom'
 
-const PublicRoute = ({ component: Component, authenticated, ...rest }) => {
+
+const PublicRoute = ({ children, authenticated }) => {
+
     return (
-        <Route
-            {...rest}
-            render={(props) => authenticated === false
-                ? <Component {...props} />
-                : <Redirect to='/chat' />}
-        />
+        !authenticated ? children : <Navigate to='/chat' />
     )
 }
 
